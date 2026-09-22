@@ -113,13 +113,13 @@ export const generateDailyCarousels = (
     const fixedCarousels: CarouselConfig[] = [
         {
             id: 'new-releases',
-            title: 'Lançamentos Recentes',
+            title: 'Recent Releases',
             type: 'movie',
             year: currentYear
         },
         {
             id: 'trending',
-            title: 'Em Alta Hoje',
+            title: 'Trending Today',
             type: 'trending'
         }
     ];
