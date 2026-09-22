@@ -146,7 +146,7 @@ async function resolveTarget(request: Request): Promise<{ url: string } | { erro
 
     const accountOrigin = await getAllowedOrigin();
     if (!accountOrigin) {
-        return { error: NextResponse.json({ error: 'Conta não configurada' }, { status: 503 }) };
+        return { error: NextResponse.json({ error: 'Account is not configured' }, { status: 503 }) };
     }
     allowedOrigins.add(accountOrigin);
 
@@ -156,7 +156,7 @@ async function resolveTarget(request: Request): Promise<{ url: string } | { erro
         try {
             origin = new URL(src).origin;
         } catch {
-            return { error: NextResponse.json({ error: 'src inválido' }, { status: 400 }) };
+        return { error: NextResponse.json({ error: 'Invalid source' }, { status: 400 }) };
         }
         if (!allowedOrigins.has(origin)) {
             return { error: NextResponse.json({ error: 'Origem não permitida' }, { status: 403 }) };
@@ -167,12 +167,12 @@ async function resolveTarget(request: Request): Promise<{ url: string } | { erro
     if (streamId && type === 'live') {
         const upstream = await buildUpstreamLiveUrl(streamId);
         if (!upstream) {
-            return { error: NextResponse.json({ error: 'Conta não configurada' }, { status: 503 }) };
+        return { error: NextResponse.json({ error: 'Account is not configured' }, { status: 503 }) };
         }
         return { url: upstream };
     }
 
-    return { error: NextResponse.json({ error: 'Parâmetros inválidos' }, { status: 400 }) };
+    return { error: NextResponse.json({ error: 'Invalid parameters' }, { status: 400 }) };
 }
 
 export async function GET(request: Request) {
@@ -210,6 +210,6 @@ export async function GET(request: Request) {
         });
     } catch (error) {
         console.error('[Relay] erro:', error);
-        return NextResponse.json({ error: 'Falha no relay' }, { status: 502 });
+        return NextResponse.json({ error: 'Relay failed' }, { status: 502 });
     }
 }

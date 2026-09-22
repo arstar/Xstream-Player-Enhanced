@@ -133,7 +133,7 @@ export async function DELETE(request: Request) {
         return response;
     } catch (error) {
         console.error('[Devices] Failed to disconnect device session', error);
-        return NextResponse.json({ error: 'Falha ao desconectar o aparelho.' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to disconnect device.' }, { status: 500 });
     }
 }
 

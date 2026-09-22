@@ -72,7 +72,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             });
 
             if (!startResponse.ok) {
-                throw new Error('Falha ao iniciar sincronizacao no servidor');
+                throw new Error('Failed to start server synchronization');
             }
 
             const startBody = await startResponse.json() as { job: ServerSyncJob };
@@ -82,7 +82,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             while (!cancelPollingRef.current && activeJobIdRef.current) {
                 const statusResponse = await apiFetch(`/api/sync?jobId=${encodeURIComponent(activeJobIdRef.current)}`);
                 if (!statusResponse.ok) {
-                    throw new Error('Falha ao consultar sincronizacao no servidor');
+                    throw new Error('Failed to query server synchronization');
                 }
 
                 const statusBody = await statusResponse.json() as { job: ServerSyncJob | null };

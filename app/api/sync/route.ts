@@ -90,7 +90,7 @@ async function runJob(job: SyncJob, credentials: XtreamCredentials) {
             job.message = 'Sincronizacao cancelada';
         } else {
             job.status = 'failed';
-            job.error = error instanceof Error ? error.message : 'Erro desconhecido na sincronizacao';
+        job.error = error instanceof Error ? error.message : 'Unknown synchronization error';
             job.message = job.error;
             console.error('[ServerSync] Job failed:', error);
         }

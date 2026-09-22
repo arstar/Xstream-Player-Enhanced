@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         // The client owns the whole list and posts it after every add/remove.
         const items = await request.json() as FavoriteItem[];
         if (!Array.isArray(items)) {
-            return NextResponse.json({ error: 'Lista de favoritos inválida' }, { status: 400 });
+                return NextResponse.json({ error: 'Invalid favorites list' }, { status: 400 });
         }
 
         replaceFavorites(resolveProfileId(request), items);

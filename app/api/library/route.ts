@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         if (body.action === 'saveDetail' || body.action === 'getDetail') {
             const detailType = asContentType(body.type);
             if (!detailType) {
-                return NextResponse.json({ error: 'Tipo de conteúdo inválido' }, { status: 400 });
+                return NextResponse.json({ error: 'Invalid content type' }, { status: 400 });
             }
 
             if (body.action === 'getDetail') {

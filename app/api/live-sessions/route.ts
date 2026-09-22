@@ -38,13 +38,13 @@ export async function POST(request: Request) {
 
     const body = await request.json().catch(() => null);
     if (!body) {
-        return NextResponse.json({ error: 'Corpo inválido' }, { status: 400 });
+        return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
 
     const { deviceId, deviceName, contentType, streamId, title, poster, ip, ext, seriesId, resume } = body;
 
     if (!deviceId || !deviceName || !streamId || !title || !VALID_TYPES.includes(contentType)) {
-        return NextResponse.json({ error: 'Campos obrigatórios ausentes' }, { status: 400 });
+        return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     // `resume` marks a sharing session the user just turned on by hand, which overrides
@@ -84,7 +84,7 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url);
     const deviceId = searchParams.get('deviceId');
     if (!deviceId) {
-        return NextResponse.json({ error: 'deviceId ausente' }, { status: 400 });
+        return NextResponse.json({ error: 'Missing deviceId' }, { status: 400 });
     }
 
     endSession(deviceId);

@@ -162,12 +162,12 @@ async function reapOnce() {
         if (now - b.startedAt < STARTUP_GRACE_MS) continue;
 
         if (pruneConsumers(b, now) === 0) {
-            console.log(`[VodBroadcast ${b.key}] encerrado: nenhum aparelho reproduzindo`);
+            console.log(`[VodBroadcast ${b.key}] stopped: no device playing`);
             stopBroadcast(b);
             continue;
         }
         if (await hasStalled(b, now)) {
-            console.log(`[VodBroadcast ${b.key}] encerrado: ffmpeg parou de gerar segmentos`);
+            console.log(`[VodBroadcast ${b.key}] stopped: ffmpeg stopped generating segments`);
             stopBroadcast(b);
         }
     }
@@ -282,16 +282,16 @@ export async function ensureVodBroadcast(
 
         const stopMark = stopMarks.get(key);
         if (stopMark && Date.now() < stopMark) {
-            return { error: 'Transmissão encerrada' };
+            return { error: 'Broadcast ended' };
         }
 
         if (broadcasts.size >= MAX_BROADCASTS) {
-            return { error: 'Limite de transmissões simultâneas atingido' };
+            return { error: 'Simultaneous broadcast limit reached' };
         }
 
         const upstreamUrl = await buildUpstreamVodUrl(type, streamId, ext);
         if (!upstreamUrl) {
-            return { error: 'Conta não configurada' };
+            return { error: 'Account is not configured' };
         }
 
         const dir = newRunDir(key);
@@ -350,7 +350,7 @@ export async function restartVodBroadcast(
 
     const upstreamUrl = await buildUpstreamVodUrl(type, streamId, ext);
     if (!upstreamUrl) {
-        return { error: 'Conta não configurada' };
+        return { error: 'Account is not configured' };
     }
 
     const dir = newRunDir(key);
@@ -410,7 +410,7 @@ export function killBroadcast(key: string): boolean {
     stopMarks.set(key, Date.now() + STOP_MARK_MS);
     const b = broadcasts.get(key);
     if (!b) return false;
-    console.log(`[VodBroadcast ${key}] encerrado manualmente`);
+    console.log(`[VodBroadcast ${key}] stopped manually`);
     stopBroadcast(b);
     return true;
 }

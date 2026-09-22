@@ -29,6 +29,6 @@ export async function POST(request: Request) {
         return NextResponse.json(consumePairing(pairingId));
     } catch (error) {
         console.error('[Devices] Failed to poll pairing', error);
-        return NextResponse.json({ error: 'Falha ao consultar o pareamento' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to query pairing' }, { status: 500 });
     }
 }

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     try {
         const body = (await request.json().catch(() => null)) as HeartbeatRequestBody | null;
         if (!body) {
-            return NextResponse.json({ error: 'Corpo inválido' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
         }
 
         const key = String(body.key ?? '');
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         const state = body.state as ConsumerState;
 
         if (!KEY_PATTERN.test(key) || !deviceId || !VALID_STATES.includes(state)) {
-            return NextResponse.json({ error: 'Parâmetros inválidos' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid parameters' }, { status: 400 });
         }
 
         // generation lets a viewer notice the broadcast was seeked (timeline reset) and
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         const alive = reportConsumer(key, deviceId, state);
         return NextResponse.json({ alive, generation: getBroadcastGeneration(key) });
     } catch (error) {
-        console.error('[VodHeartbeat] Falha ao registrar reprodução', error);
-        return NextResponse.json({ error: 'Falha ao registrar reprodução' }, { status: 500 });
+        console.error('[VodHeartbeat] Failed to register playback', error);
+        return NextResponse.json({ error: 'Failed to register playback' }, { status: 500 });
     }
 }

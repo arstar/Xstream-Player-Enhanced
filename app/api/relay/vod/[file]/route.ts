@@ -69,7 +69,7 @@ export async function GET(
     if (file.endsWith('.m4s') || file === 'init.mp4' || file.endsWith('.ts')) {
         const key = searchParams.get('key');
         if (!key) {
-            return NextResponse.json({ error: 'key ausente' }, { status: 400 });
+            return NextResponse.json({ error: 'Missing key' }, { status: 400 });
         }
         const data = await readSegment(key, file);
         if (!data) {
@@ -90,10 +90,10 @@ export async function GET(
         const startParam = searchParams.get('start') || '0';
 
         if (!VALID_TYPES.includes(type as VodType) || !/^\d+$/.test(streamId) || !/^[a-z0-9]{1,5}$/i.test(ext)) {
-            return NextResponse.json({ error: 'Parâmetros inválidos' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid parameters' }, { status: 400 });
         }
         if (!/^\d{1,6}$/.test(startParam)) {
-            return NextResponse.json({ error: 'Parâmetros inválidos' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid parameters' }, { status: 400 });
         }
 
         const result = await ensureVodBroadcast(type as VodType, streamId, ext, Number(startParam));
@@ -103,7 +103,7 @@ export async function GET(
 
         const playlist = await waitForPlaylist(result.key, result.dir);
         if (!playlist) {
-            return NextResponse.json({ error: 'Transmissão não iniciou a tempo' }, { status: 504 });
+            return NextResponse.json({ error: 'Broadcast did not start in time' }, { status: 504 });
         }
 
         const rewritten = rewritePlaylist(playlist, keyFor(type, streamId));
@@ -116,5 +116,5 @@ export async function GET(
         });
     }
 
-    return NextResponse.json({ error: 'Recurso inválido' }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid resource' }, { status: 400 });
 }

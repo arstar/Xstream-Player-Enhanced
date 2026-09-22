@@ -36,7 +36,7 @@ export async function POST(
         await params;
         const progress = await request.json() as WatchProgress;
         if (!progress || typeof progress.timestamp !== 'number') {
-            return NextResponse.json({ error: 'Progresso inválido' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid progress' }, { status: 400 });
         }
 
         // The row is keyed by the progress payload itself, so the URL params are

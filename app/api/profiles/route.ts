@@ -23,7 +23,7 @@ export async function GET(request: Request) {
         return NextResponse.json({ data: listProfiles() });
     } catch (error) {
         console.error('[Profiles] Failed to list profiles', error);
-        return NextResponse.json({ error: 'Falha ao carregar perfis' }, { status: 500 });
+            return NextResponse.json({ error: 'Failed to load profiles' }, { status: 500 });
     }
 }
 
@@ -72,10 +72,10 @@ export async function POST(request: NextRequest) {
             }
 
             default:
-                return NextResponse.json({ error: 'Ação inválida' }, { status: 400 });
+                return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
         }
     } catch (error) {
         console.error('[Profiles] Failed to update profiles', error);
-        return NextResponse.json({ error: 'Falha ao salvar perfil' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to save profile' }, { status: 500 });
     }
 }

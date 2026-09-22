@@ -31,7 +31,7 @@ export async function POST(request: Request) {
         const body = (await request.json()) as SeekRequestBody;
 
         if (body.action !== 'seek') {
-            return NextResponse.json({ error: 'Ação inválida' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
         }
 
         const contentType = body.contentType ?? '';
@@ -40,10 +40,10 @@ export async function POST(request: Request) {
         const start = Math.floor(body.start ?? 0);
 
         if (!VOD_TYPES.includes(contentType) || !/^\d+$/.test(streamId) || !/^[a-z0-9]{1,5}$/i.test(ext)) {
-            return NextResponse.json({ error: 'Parâmetros inválidos' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid parameters' }, { status: 400 });
         }
         if (!Number.isFinite(start) || start < 0 || start > MAX_START_SECONDS) {
-            return NextResponse.json({ error: 'Ponto inválido' }, { status: 400 });
+            return NextResponse.json({ error: 'Invalid position' }, { status: 400 });
         }
 
         const result = await restartVodBroadcast(contentType as VodType, streamId, ext, start);
@@ -53,8 +53,8 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error('[VodBroadcast] Falha ao mover a transmissão', error);
-        return NextResponse.json({ error: 'Falha ao mover a transmissão' }, { status: 500 });
+        console.error('[VodBroadcast] Failed to seek broadcast', error);
+        return NextResponse.json({ error: 'Failed to seek broadcast' }, { status: 500 });
     }
 }
 
@@ -76,7 +76,7 @@ export async function DELETE(request: Request) {
         const streamId = searchParams.get('streamId') ?? '';
 
         if (!deviceId) {
-            return NextResponse.json({ error: 'deviceId ausente' }, { status: 400 });
+            return NextResponse.json({ error: 'Missing deviceId' }, { status: 400 });
         }
 
         // Live channels have no ffmpeg behind them (the live relay is just a cache).
@@ -87,7 +87,7 @@ export async function DELETE(request: Request) {
         stopDevice(deviceId);
         return NextResponse.json({ success: true });
     } catch (error) {
-        console.error('[VodBroadcast] Falha ao encerrar transmissão', error);
-        return NextResponse.json({ error: 'Falha ao encerrar transmissão' }, { status: 500 });
+        console.error('[VodBroadcast] Failed to stop broadcast', error);
+        return NextResponse.json({ error: 'Failed to stop broadcast' }, { status: 500 });
     }
 }

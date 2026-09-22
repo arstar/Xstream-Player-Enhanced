@@ -93,7 +93,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'create', name })
         });
-        if (!res.ok) throw new Error('Falha ao criar perfil');
+        if (!res.ok) throw new Error('Failed to create profile');
         const { data } = await res.json() as { data: Profile };
         setProfiles(prev => [...prev, data]);
     }, []);
@@ -104,7 +104,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'update', id, name })
         });
-        if (!res.ok) throw new Error('Falha ao renomear perfil');
+        if (!res.ok) throw new Error('Failed to rename profile');
         const { data } = await res.json() as { data: Profile };
         setProfiles(prev => prev.map(p => (p.id === id ? data : p)));
     }, []);
@@ -117,7 +117,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         });
         if (!res.ok) {
             const { error } = await res.json() as { error?: string };
-            return error ?? 'Falha ao excluir perfil';
+            return error ?? 'Failed to delete profile';
         }
 
         const remaining = profiles.filter(p => p.id !== id);

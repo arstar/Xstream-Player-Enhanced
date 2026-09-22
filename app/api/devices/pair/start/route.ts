@@ -96,6 +96,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ ...pairing, approvalUrl, qr });
     } catch (error) {
         console.error('[Devices] Failed to start pairing', error);
-        return NextResponse.json({ error: 'Falha ao iniciar o pareamento' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to start pairing' }, { status: 500 });
     }
 }

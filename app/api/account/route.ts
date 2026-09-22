@@ -28,12 +28,12 @@ export async function GET(request: Request) {
             const raw = await fs.readFile(CONFIG_PATH, 'utf-8');
             config = JSON.parse(raw) as StoredConfig;
         } catch {
-            return NextResponse.json({ error: 'Credenciais não configuradas' }, { status: 404 });
+            return NextResponse.json({ error: 'Credentials are not configured' }, { status: 404 });
         }
 
         const creds = config.credentials;
         if (!creds?.hostUrl || !creds.username || !creds.password) {
-            return NextResponse.json({ error: 'Credenciais não configuradas' }, { status: 404 });
+            return NextResponse.json({ error: 'Credentials are not configured' }, { status: 404 });
         }
 
         const baseUrl = creds.hostUrl.replace(/\/$/, '');
@@ -43,12 +43,12 @@ export async function GET(request: Request) {
         );
 
         if (!response.ok) {
-            return NextResponse.json({ error: 'Falha ao consultar o provedor' }, { status: 502 });
+            return NextResponse.json({ error: 'Failed to query provider' }, { status: 502 });
         }
 
         const data = await response.json();
         if (!data.user_info) {
-            return NextResponse.json({ error: 'Resposta inválida do provedor' }, { status: 502 });
+            return NextResponse.json({ error: 'Invalid provider response' }, { status: 502 });
         }
 
         // user_info carries the plaintext password — only the counters go to the client.
@@ -56,6 +56,6 @@ export async function GET(request: Request) {
         return NextResponse.json({ data: { active_cons, max_connections, status } });
     } catch (error) {
         console.error('[Account] Failed to fetch account info', error);
-        return NextResponse.json({ error: 'Falha ao consultar a conta' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to query account' }, { status: 500 });
     }
 }

@@ -44,7 +44,7 @@ export async function GET(request: Request) {
         return NextResponse.json({ data: listDevices(), currentDeviceId });
     } catch (error) {
         console.error('[Devices] Failed to list devices', error);
-        return NextResponse.json({ error: 'Falha ao carregar aparelhos' }, { status: 500 });
+                return NextResponse.json({ error: 'Failed to load devices' }, { status: 500 });
     }
 }
 
@@ -83,7 +83,7 @@ export async function PATCH(request: Request) {
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('[Devices] Failed to update device', error);
-        return NextResponse.json({ error: 'Falha ao atualizar o aparelho' }, { status: 500 });
+            return NextResponse.json({ error: 'Failed to update device' }, { status: 500 });
     }
 }
 
@@ -105,6 +105,6 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('[Devices] Failed to revoke device', error);
-        return NextResponse.json({ error: 'Falha ao revogar o aparelho' }, { status: 500 });
+            return NextResponse.json({ error: 'Failed to revoke device' }, { status: 500 });
     }
 }

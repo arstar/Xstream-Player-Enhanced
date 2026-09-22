@@ -50,6 +50,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: true, device });
     } catch (error) {
         console.error('[Devices] Failed to approve pairing', error);
-        return NextResponse.json({ error: 'Falha ao aprovar o pareamento' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to approve pairing' }, { status: 500 });
     }
 }
