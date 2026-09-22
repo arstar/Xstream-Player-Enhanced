@@ -11,6 +11,7 @@ import { TMDbProvider } from '../app/context/TMDbContext';
 import { SubtitleProvider } from '../app/context/SubtitleContext';
 import { ProfileProvider, useProfile } from '../app/context/ProfileContext';
 import ProfileSelector from '@/components/ProfileSelector';
+import KodiRemoteBridge from '@/components/KodiRemoteBridge';
 
 /**
  * Favorites and watch progress are loaded once on mount from the profile the
@@ -56,6 +57,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
             <DataProvider>
                 <ProfileProvider>
                     <ProfileScopedProviders>
+                        <KodiRemoteBridge />
                         {children}
                     </ProfileScopedProviders>
                 </ProfileProvider>

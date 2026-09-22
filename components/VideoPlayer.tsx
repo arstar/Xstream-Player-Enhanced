@@ -623,6 +623,21 @@ export default function VideoPlayer({
         }
     }, [isMuted]);
 
+    // The Kodi compatibility bridge supplies an absolute 0-100 volume value.
+    // Keep it on the same path as the on-screen slider so mute state stays in
+    // sync with the actual video element.
+    useEffect(() => {
+        const handleKodiVolume = (event: Event) => {
+            const value = (event as CustomEvent<number>).detail;
+            if (typeof value === 'number' && Number.isFinite(value)) {
+                handleVolumeChange(Math.max(0, Math.min(1, value / 100)));
+            }
+        };
+
+        window.addEventListener('xstream-kodi-volume', handleKodiVolume);
+        return () => window.removeEventListener('xstream-kodi-volume', handleKodiVolume);
+    }, [handleVolumeChange]);
+
     const jumpToPercent = useCallback((percent: number) => {
         if (isBroadcastTimeline) {
             seekToAbsolute((percent / 100) * totalDuration);

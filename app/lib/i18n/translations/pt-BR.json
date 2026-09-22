@@ -244,6 +244,21 @@
             "viewTvMode": "Ver Modo TV",
             "viewDevices": "Ver aparelhos"
         },
+        "kodiRemote": {
+            "title": "Controle remoto Kodi / Yatse",
+            "description": "Controle o Xstream por um controle compatível com Kodi na sua rede doméstica.",
+            "configured": "Configurado",
+            "username": "Usuário",
+            "authenticationEnabled": "Exigir nome de usuário e senha",
+            "password": "Nova senha",
+            "passwordHint": "A senha atual nunca é exibida. Use pelo menos 8 caracteres.",
+            "passwordPlaceholder": "Digite uma nova senha do controle remoto",
+            "passwordRule": "Use pelo menos 8 caracteres para a senha do controle remoto.",
+            "save": "Atualizar senha",
+            "saved": "Senha atualizada",
+            "loadError": "Não foi possível carregar as configurações do controle Kodi.",
+            "saveError": "Não foi possível atualizar a senha do controle Kodi."
+        },
         "diagnostics": {
             "title": "Diagnóstico",
             "open": "Abrir diagnóstico",

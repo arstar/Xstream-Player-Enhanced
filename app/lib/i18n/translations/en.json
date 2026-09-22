@@ -244,6 +244,21 @@
             "viewTvMode": "Open TV Mode",
             "viewDevices": "View devices"
         },
+        "kodiRemote": {
+            "title": "Kodi / Yatse remote",
+            "description": "Control Xstream from a Kodi-compatible remote on your home network.",
+            "configured": "Configured",
+            "username": "Username",
+            "authenticationEnabled": "Require username and password",
+            "password": "New password",
+            "passwordHint": "The current password is never shown. Use at least 8 characters.",
+            "passwordPlaceholder": "Enter a new remote password",
+            "passwordRule": "Use at least 8 characters for the remote password.",
+            "save": "Update password",
+            "saved": "Password updated",
+            "loadError": "Could not load Kodi remote settings.",
+            "saveError": "Could not update the Kodi remote password."
+        },
         "diagnostics": {
             "title": "Diagnostics",
             "open": "Open diagnostics",

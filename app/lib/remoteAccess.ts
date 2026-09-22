@@ -177,9 +177,13 @@ function signSessionPayload(payload: string, pinHash: string) {
 export function isRemoteAccessRequired(hostHeader: string | null) {
     const hostname = extractHostname(hostHeader);
 
-    if (!hostname || hostname === 'localhost' || hostname.endsWith('.localhost') || net.isIP(hostname)) {
+    if (!hostname || hostname === 'localhost' || hostname.endsWith('.localhost')) {
         return false;
     }
+
+    // An address on the home LAN is still a remote browser. Keeping it behind
+    // the PIN matters now that the server can be reached by a phone remote.
+    if (net.isIP(hostname)) return hostname !== '127.0.0.1' && hostname !== '::1';
 
     if (!hostname.includes('.')) {
         return false;

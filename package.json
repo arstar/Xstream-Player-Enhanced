@@ -10,6 +10,7 @@
     "build:polyfills": "esbuild app/polyfills.ts --bundle --format=iife --target=es2015 --outfile=public/polyfills-legacy.js --minify",
     "start": "next start",
     "lint": "eslint",
+    "setup:kodi-remote": "node scripts/setup-kodi-remote.mjs",
     "tv:assets": "python3 scripts/gen-tv-assets.py",
     "package:webos": "node scripts/package-tv.mjs webos",
     "package:webos:dev": "node scripts/package-tv.mjs webos dev",

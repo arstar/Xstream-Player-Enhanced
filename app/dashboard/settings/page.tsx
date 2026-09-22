@@ -9,6 +9,7 @@ import SubtitlesSection from '@/components/settings/SubtitlesSection';
 import TmdbSection from '@/components/settings/TmdbSection';
 import TvModeSection from '@/components/settings/TvModeSection';
 import DiagnosticsSection from '@/components/settings/DiagnosticsSection';
+import KodiRemoteSection from '@/components/settings/KodiRemoteSection';
 
 /** Everything that used to live in the sidebar and the home header pills. */
 export default function SettingsPage() {
@@ -37,6 +38,9 @@ export default function SettingsPage() {
                 </div>
                 <div className="border-t border-line pt-8">
                     <TvModeSection />
+                </div>
+                <div className="border-t border-line pt-8">
+                    <KodiRemoteSection />
                 </div>
                 <div className="border-t border-line pt-8 pb-4">
                     <DiagnosticsSection />
