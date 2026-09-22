@@ -128,13 +128,13 @@ export const generateDailyCarousels = (
     const genreCarousels: CarouselConfig[] = [
         ...movieGenres.map(genre => ({
             id: `movie-genre-${genre.id}`,
-            title: `Filmes de ${genre.name}`,
+            title: `Movies: ${genre.name}`,
             type: 'movie' as const,
             genreId: genre.id
         })),
         ...tvGenres.map(genre => ({
             id: `tv-genre-${genre.id}`,
-            title: `Séries de ${genre.name}`,
+            title: `Series: ${genre.name}`,
             type: 'tv' as const,
             genreId: genre.id
         }))
